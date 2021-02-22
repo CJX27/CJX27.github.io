@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">CJX</title>
+  <title itemprop="name">Redis实现分分布式锁 | CJX</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -387,6 +387,30 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
 
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/CJX27/Hexo_Blog@3.0/images/articles/ArticlesLogo.jpeg);" src="https://cdn.jsdelivr.net/gh/CJX27/Hexo_Blog_Resources@4.0/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/CJX27/Hexo_Blog@3.0/images/articles/ArticlesLogo.jpeg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Redis实现分分布式锁</h1>
+      <p class="entry-census">
+        <span>
+          <a href="cjx.cn">
+            <img src="https://cdn.jsdelivr.net/gh/CJX27/Hexo_Blog@2.0/images/blog-logo.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="cjx.cn">cjx</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-2-22<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
@@ -394,15 +418,8 @@
         <div class="toc"></div>
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
-          <header class="entry-header">
-            <h1 class="entry-title"></h1>
-            <p class="entry-census">&nbsp;·&nbsp;2021-2-22&nbsp;·&nbsp;<span id="busuanzi_value_page_pv"></span>次阅读</p></p>
-
-            <hr>
-          </header>
-        
         <div class="entry-content">
-          <h1 id="Redis实现分分布式锁"><a href="#Redis实现分分布式锁" class="headerlink" title="Redis实现分分布式锁"></a>Redis实现分分布式锁</h1><h2 id="分布式锁一般有三种实现方式："><a href="#分布式锁一般有三种实现方式：" class="headerlink" title="分布式锁一般有三种实现方式："></a>分布式锁一般有三种实现方式：</h2><ol>
+          <h1 id="Redis实现分布式锁"><a href="#Redis实现分布式锁" class="headerlink" title="Redis实现分布式锁"></a>Redis实现分布式锁</h1><h2 id="分布式锁一般有三种实现方式："><a href="#分布式锁一般有三种实现方式：" class="headerlink" title="分布式锁一般有三种实现方式："></a>分布式锁一般有三种实现方式：</h2><ol>
 <li>基于数据库乐观锁实现；</li>
 <li>基于Redis的分布式锁；</li>
 <li>基于ZooKeeper的分布式锁。</li>
@@ -525,16 +542,16 @@ public String getTempValue(String key, int numOfMin, Supplier&lt;String&gt; supp
 
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-          <a href="" class="profile gravatar"><img src="" itemprop="image" alt="" height="70" width="70"></a>
+          <a href="cjx.cn" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/CJX27/Hexo_Blog@2.0/images/blog-logo.jpg" itemprop="image" alt="cjx" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">
-            <a href="" itemprop="url" rel="author"></a>
+            <a href="cjx.cn" itemprop="url" rel="author">cjx</a>
             </h3>
           </div>
         </div>
         <hr>
-        <p><i class="iconfont icon-write"></i></p>
+        <p><i class="iconfont icon-write"></i>一个好奇的人</p>
       </section>
     </main><!-- #main -->
   </div><!-- #primary -->
