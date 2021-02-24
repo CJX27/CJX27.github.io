@@ -429,55 +429,55 @@
 <p><img src="https://cjx27.coding.net/p/resources/d/image/git/raw/master/ThreadPool.png" alt="线程池流程图" title="线程池流程图"></p>
 <h2 id="线程池的源码解读"><a href="#线程池的源码解读" class="headerlink" title="线程池的源码解读"></a>线程池的源码解读</h2><ol>
 <li><p>ThreadPoolExecutor的execute()方法</p>
-<pre><code class="java"> 1 public void execute(Runnable command) {
- 2      if (command == null)
- 3          throw new NullPointerException();
+<pre><code class="java"> public void execute(Runnable command) {
+      if (command == null)
+          throw new NullPointerException();
 　　　　　　  //如果线程数大于等于基本线程数或者线程创建失败，将任务加入队列
- 4          if (poolSize &gt;= corePoolSize || !addIfUnderCorePoolSize(command)) {
+          if (poolSize &gt;= corePoolSize || !addIfUnderCorePoolSize(command)) {
 　　　　　　　　　　//线程池处于运行状态并且加入队列成功
- 5              if (runState == RUNNING &amp;&amp; workQueue.offer(command)) {
- 6                  if (runState != RUNNING || poolSize == 0)
- 7                     ensureQueuedTaskHandled(command);
- 8              }
+              if (runState == RUNNING &amp;&amp; workQueue.offer(command)) {
+                  if (runState != RUNNING || poolSize == 0)
+                     ensureQueuedTaskHandled(command);
+              }
 　　　　　　　　　 //线程池不处于运行状态或者加入队列失败，则创建线程（创建的是非核心线程）
- 9              else if (!addIfUnderMaximumPoolSize(command))
+              else if (!addIfUnderMaximumPoolSize(command))
 　　　　　　　　　　　//创建线程失败，则采取阻塞处理的方式
-10                 reject(command); // is shutdown or saturated
-11      }
-12 }
+                 reject(command); // is shutdown or saturated
+      }
+ }
 </code></pre>
 </li>
 <li><p>创建线程的方法：addIfUnderCorePoolSize(Runnable firstTask)</p>
-<pre><code class="java"> 1 private boolean addIfUnderCorePoolSize(Runnable firstTask) {
- 2       Thread t = null;
- 3       final ReentrantLock mainLock = this.mainLock;
- 4       mainLock.lock();
- 5       try {
- 6           if (poolSize &lt; corePoolSize &amp;&amp; runState == RUNNING)
- 7               t = addThread(firstTask);
- 8       } finally {
- 9           mainLock.unlock();
-10       }
-11       if (t == null)
-12           return false;
-13       t.start();
-14       return true;
-15 }
+<pre><code class="java"> private boolean addIfUnderCorePoolSize(Runnable firstTask) {
+       Thread t = null;
+       final ReentrantLock mainLock = this.mainLock;
+       mainLock.lock();
+       try {
+           if (poolSize &lt; corePoolSize &amp;&amp; runState == RUNNING)
+               t = addThread(firstTask);
+       } finally {
+           mainLock.unlock();
+       }
+       if (t == null)
+           return false;
+       t.start();
+       return true;
+ }
 </code></pre>
 <ul>
 <li><p>重点在第七行</p>
-<pre><code class="java"> 1 private Thread addThread(Runnable firstTask) {
- 2       Worker w = new Worker(firstTask);
- 3       Thread t = threadFactory.newThread(w);
- 4       if (t != null) {
- 5           w.thread = t;
- 6           workers.add(w);
- 7           int nt = ++poolSize;
- 8           if (nt &gt; largestPoolSize)
- 9               largestPoolSize = nt;
-10       }
-11       return t;
-12 }
+<pre><code class="java"> private Thread addThread(Runnable firstTask) {
+       Worker w = new Worker(firstTask);
+       Thread t = threadFactory.newThread(w);
+       if (t != null) {
+           w.thread = t;
+           workers.add(w);
+           int nt = ++poolSize;
+           if (nt &gt; largestPoolSize)
+               largestPoolSize = nt;
+       }
+       return t;
+ }
 </code></pre>
 </li>
 </ul>
@@ -499,41 +499,41 @@
 <li><p>通过一个程序来观察线程池的工作原理：</p>
 <ul>
 <li><p>(1) 创建一个线程</p>
-<pre><code class="java"> 1 public class ThreadPoolTest implements Runnable
- 2 {
- 3     @Override
- 4     public void run()
- 5     {
- 6         try
- 7         {
- 8             Thread.sleep(300);
- 9         }
-10         catch (InterruptedException e)
-11         {
-12             e.printStackTrace();
-13         }
-14     }
-15 }
+<pre><code class="java"> public class ThreadPoolTest implements Runnable
+ {
+     @Override
+     public void run()
+     {
+         try
+         {
+             Thread.sleep(300);
+         }
+         catch (InterruptedException e)
+         {
+             e.printStackTrace();
+         }
+     }
+ }
 </code></pre>
 </li>
 <li><p>(2) 线程池循环运行16个线程：</p>
-<pre><code class="java"> 1 public static void main(String[] args)
- 2 {
- 3     LinkedBlockingQueue&lt;Runnable&gt; queue =
- 4         new LinkedBlockingQueue&lt;Runnable&gt;(5);
- 5     ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 10, 60, TimeUnit.SECONDS, queue);
- 6     for (int i = 0; i &lt; 16 ; i++)
- 7     {
- 8         threadPool.execute(
- 9             new Thread(new ThreadPoolTest(), &quot;Thread&quot;.concat(i + &quot;&quot;)));
-10         System.out.println(&quot;线程池中活跃的线程数： &quot; + threadPool.getPoolSize());
-11         if (queue.size() &gt; 0)
-12         {
-13            System.out.println(&quot;----------------队列中阻塞的线程数&quot; + queue.size());
-14         }
-15     }
-16     threadPool.shutdown();
-17 }
+<pre><code class="java"> public static void main(String[] args)
+ {
+     LinkedBlockingQueue&lt;Runnable&gt; queue =
+         new LinkedBlockingQueue&lt;Runnable&gt;(5);
+     ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 10, 60, TimeUnit.SECONDS, queue);
+     for (int i = 0; i &lt; 16 ; i++)
+     {
+         threadPool.execute(
+             new Thread(new ThreadPoolTest(), &quot;Thread&quot;.concat(i + &quot;&quot;)));
+         System.out.println(&quot;线程池中活跃的线程数： &quot; + threadPool.getPoolSize());
+         if (queue.size() &gt; 0)
+         {
+            System.out.println(&quot;----------------队列中阻塞的线程数&quot; + queue.size());
+         }
+     }
+     threadPool.shutdown();
+ }
 </code></pre>
 </li>
 <li><p>(3) 执行结果：</p>
@@ -590,25 +590,25 @@ Exception in thread &quot;main&quot; java.util.concurrent.RejectedExecutionExcep
 <p>3、DiscardOldestPolicy：丢弃队列里最近的一个任务，并执行当前任务。</p>
 <p>4、DiscardPolicy：不处理，丢弃掉。</p>
 <p>我们现在用第四种策略来处理上面的程序：</p>
-<pre><code class="java"> 1 public static void main(String[] args)
- 2 {
- 3     LinkedBlockingQueue&lt;Runnable&gt; queue =
- 4         new LinkedBlockingQueue&lt;Runnable&gt;(3);
- 5     RejectedExecutionHandler handler = new ThreadPoolExecutor.DiscardPolicy();
- 6 
- 7     ThreadPoolExecutor threadPool = new ThreadPoolExecutor(2, 5, 60, TimeUnit.SECONDS, queue,handler);
- 8     for (int i = 0; i &lt; 9 ; i++)
- 9     {
-10         threadPool.execute(
-11             new Thread(new ThreadPoolTest(), &quot;Thread&quot;.concat(i + &quot;&quot;)));
-12         System.out.println(&quot;线程池中活跃的线程数： &quot; + threadPool.getPoolSize());
-13         if (queue.size() &gt; 0)
-14         {
-15             System.out.println(&quot;----------------队列中阻塞的线程数&quot; + queue.size());
-16         }
-17      }
-18     threadPool.shutdown();
-19 }
+<pre><code class="java"> public static void main(String[] args)
+ {
+     LinkedBlockingQueue&lt;Runnable&gt; queue =
+         new LinkedBlockingQueue&lt;Runnable&gt;(3);
+     RejectedExecutionHandler handler = new ThreadPoolExecutor.DiscardPolicy();
+
+     ThreadPoolExecutor threadPool = new ThreadPoolExecutor(2, 5, 60, TimeUnit.SECONDS, queue,handler);
+     for (int i = 0; i &lt; 9 ; i++)
+     {
+         threadPool.execute(
+             new Thread(new ThreadPoolTest(), &quot;Thread&quot;.concat(i + &quot;&quot;)));
+         System.out.println(&quot;线程池中活跃的线程数： &quot; + threadPool.getPoolSize());
+         if (queue.size() &gt; 0)
+         {
+             System.out.println(&quot;----------------队列中阻塞的线程数&quot; + queue.size());
+         }
+      }
+     threadPool.shutdown();
+ }
 </code></pre>
 </li>
 <li><p>执行结果：</p>
