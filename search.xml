@@ -17,6 +17,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[地表最详细行转列]]></title>
+    <url>%2F2020%2F12%2F22%2F%E5%9C%B0%E8%A1%A8%E6%9C%80%E8%AF%A6%E7%BB%86%E8%A1%8C%E8%BD%AC%E5%88%97%2F</url>
+    <content type="text"><![CDATA[地表最详细行转列业务需求需要将存储的数据实现行转列展示，所以弄了个案例来分析一波行转列，走起&rArr; 业务背景学校里面有记录每个学生的每一科成绩，每个学生选得课又不全相同，所以产生了学生科目成绩分析表。 原始数据效果图： 行转列后效果图: 数据表结构 学生表 CREATE TABLE `student` ( `stuid` VARCHAR(16) NOT NULL COMMENT &#39;学号&#39;, `stunm` VARCHAR(20) NOT NULL COMMENT &#39;学生姓名&#39;, PRIMARY KEY (`stuid`) ) COLLATE=&#39;utf8_general_ci&#39; ENGINE=InnoDB;]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Hello World]]></title>
     <url>%2F2019%2F12%2F12%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post$ hexo new &quot;My New Post&quot; More info: Writing Run server$ hexo server More info: Server Generate static files$ hexo generate More info: Generating Deploy to remote sites$ hexo deploy More info: Deployment]]></content>
