@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Hexo 结合coding部署详解]]></title>
     <url>%2F2021%2F06%2F05%2FHexo%20%E7%BB%93%E5%90%88coding%E9%83%A8%E7%BD%B2%E8%AF%A6%E8%A7%A3%2F</url>
-    <content type="text"><![CDATA[Hexo 结合coding部署详解提交文件放置目录 部署命令hexo clean hexo generate 或者 hexo g hexo deploy 或者 hexo 参考资料[博客链接地址](&quot;https://www.jianshu.com/p/85192626faf3&quot;)]]></content>
+    <content type="text"><![CDATA[Hexo 结合coding部署详解]]></content>
       <categories>
         <category>技术</category>
       </categories>
