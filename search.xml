@@ -3,7 +3,7 @@
   <entry>
     <title></title>
     <url>%2F2021%2F06%2F25%2FHexo%20%E7%BB%93%E5%90%88coding%E9%83%A8%E7%BD%B2%E8%AF%A6%E8%A7%A3%2F</url>
-    <content type="text"><![CDATA[Hexo 结合coding部署详解提交文件放置目录 部署命令hexo clean hexo generate 或者 hexo g hexo deploy 或者 hexo]]></content>
+    <content type="text"><![CDATA[title: Hexo 结合coding部署详解author: cjxavatar: ‘https://cdn.jsdelivr.net/gh/CJX27/Hexo_Blog@2.0/images/blog-logo.jpg&#39;authorLink: cjx.cnauthorAbout: 一个好奇的人authorDesc: 一个好奇的人categories: 技术comments: truedate: 2021-06-05 11:39:37tags:keywords:description: photos: https://cdn.jsdelivr.net/gh/CJX27/Hexo_Blog@3.0/images/articles/ArticlesLogo.jpegHexo 结合coding部署详解提交文件放置目录 部署命令hexo clean hexo generate 或者 hexo g hexo deploy 或者 hexo 参考资料[博客链接地址](&quot;https://www.jianshu.com/p/85192626faf3&quot;)]]></content>
   </entry>
   <entry>
     <title><![CDATA[地表最详细MySQL行转列]]></title>
